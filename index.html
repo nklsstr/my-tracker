@@ -17,10 +17,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .date-badge{background:rgba(255,255,255,0.08);border:1px solid var(--card-border);border-radius:8px;padding:6px 10px;text-align:right}
 .date-label{font-size:9px;text-transform:uppercase;color:var(--accent-huberman);font-weight:700;display:block}
 .date-input{background:transparent;border:none;color:var(--text-main);font-weight:700;font-size:13px;width:90px;text-align:right;outline:none}
+
+/* METRICS GRID WITH IST / SOLL */
 .metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-.metric-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:10px 8px;text-align:center}
-.metric-label{font-size:9px;color:var(--text-muted);text-transform:uppercase;font-weight:700;margin-bottom:4px;display:block}
-.metric-input{width:100%;background:transparent;border:none;color:var(--text-main);font-size:16px;font-weight:800;text-align:center;outline:none}
+.metric-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:10px 6px;text-align:center;display:flex;flex-direction:column;justify-content:space-between}
+.metric-label{font-size:9px;color:var(--text-muted);text-transform:uppercase;font-weight:800;margin-bottom:4px;display:block}
+.metric-input-ist{width:100%;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.05);border-radius:6px;color:var(--text-main);font-size:16px;font-weight:800;text-align:center;outline:none;padding:4px 0}
+.soll-container{display:flex;align-items:center;justify-content:center;gap:3px;margin-top:6px;font-size:10px;color:var(--text-muted)}
+.soll-input{background:transparent;border:none;color:var(--text-muted);font-size:10px;font-weight:700;width:42px;text-align:center;outline:none;border-bottom:1px dashed var(--card-border)}
+
 .card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:14px;margin-bottom:12px}
 .card-header{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:800;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.05)}
 .card-title{display:flex;align-items:center;gap:6px}
@@ -41,7 +46,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .input-text{width:100%;background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:8px;padding:8px 10px;color:var(--text-main);font-size:12.5px;outline:none;transition:border 0.2s}
 .input-text:focus{border-color:var(--accent-huberman)}
 .quote-box{font-size:11px;font-style:italic;color:var(--text-muted);background:rgba(248,113,113,0.08);border-left:3px solid var(--accent-shaolin);padding:8px 10px;border-radius:0 8px 8px 0;margin-bottom:10px}
-.coffee-btn{background:rgba(251,191,36,0.15);border:1px solid var(--accent-coffee);color:var(--accent-coffee);font-size:11px;font-weight:700;padding:4px 8px;border-radius:6px;cursor:pointer}
+.coffee-btn{background:rgba(251,191,36,0.15);border:1px solid var(--accent-coffee);color:var(--accent-coffee);font-size:11px;font-weight:700;padding:6px 10px;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-block}
 </style>
 </head>
 <body>
@@ -61,19 +66,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   </div>
 </div>
 
-<!-- DAILY HEALTH METRICS -->
+<!-- DAILY HEALTH METRICS (IST VS SOLL) -->
 <div class="metrics-grid">
   <div class="metric-card">
     <span class="metric-label" style="color:var(--accent-fitness);">Schritte</span>
-    <input type="number" id="m-steps" class="metric-input" placeholder="10000">
+    <input type="number" id="m-steps-ist" class="metric-input-ist" placeholder="IST">
+    <div class="soll-container">
+      <span>SOLL:</span>
+      <input type="number" id="m-steps-soll" class="soll-input" value="10000">
+    </div>
   </div>
   <div class="metric-card">
     <span class="metric-label" style="color:var(--accent-huberman);">Kalorien</span>
-    <input type="number" id="m-cals" class="metric-input" placeholder="2200">
+    <input type="number" id="m-cals-ist" class="metric-input-ist" placeholder="IST">
+    <div class="soll-container">
+      <span>SOLL:</span>
+      <input type="number" id="m-cals-soll" class="soll-input" value="2100">
+    </div>
   </div>
   <div class="metric-card">
     <span class="metric-label" style="color:var(--accent-business);">Protein (g)</span>
-    <input type="number" id="m-protein" class="metric-input" placeholder="160">
+    <input type="number" id="m-protein-ist" class="metric-input-ist" placeholder="IST">
+    <div class="soll-container">
+      <span>SOLL:</span>
+      <input type="number" id="m-protein-soll" class="soll-input" value="180">
+    </div>
   </div>
 </div>
 
@@ -116,15 +133,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 <div class="card">
   <div class="card-header">
     <div class="card-title" style="color:var(--accent-huberman);">⏱ Tagesroutine & Zeitblöcke</div>
-    <button class="coffee-btn" onclick="startCoffeeTimer()" id="coffee-timer-btn">☕ Koffein-Timer (90m)</button>
+    <a class="coffee-btn" href="shortcuts://run-shortcut?name=Kaffee%20Timer" onclick="notifyTimer()">☕ 90m Kaffee-Timer stellen</a>
   </div>
   <ul class="task-list">
     <li class="task-item"><input type="checkbox" id="t1" class="checkbox-custom"><span class="task-time">05:30</span><span class="task-text"><strong>Aufstehen & Daylight:</strong> 500ml Wasser + Sonnenlicht</span></li>
     <li class="task-item"><input type="checkbox" id="t2" class="checkbox-custom"><span class="task-time">06:00</span><span class="task-text"><strong>Lesen & Mindset:</strong> 15-20 Seiten Fachbuch/Sachbuch</span></li>
-    <li class="task-item"><input type="checkbox" id="t3" class="checkbox-custom"><span class="task-time">07:00</span><span class="task-text"><strong>Frühstück & Koffein-Anker:</strong> High-Protein Meal</span></li>
+    <li class="task-item"><input type="checkbox" id="t3" class="checkbox-custom"><span class="task-time">07:00</span><span class="task-text"><strong>Frühstück & Koffein-Anker:</strong> High-Protein Meal (180g Tagesziel)</span></li>
     <li class="task-item"><input type="checkbox" id="t4" class="checkbox-custom"><span class="task-time">08:00</span><span class="task-text"><strong>Deep Work Block 1:</strong> Fokus-Projekte & Business</span></li>
-    <li class="task-item"><input type="checkbox" id="t5" class="checkbox-custom"><span class="task-time">11:30</span><span class="task-text"><strong>Movement & Fitness:</strong> Workout / 10.000 Schritte</span></li>
-    <li class="task-item"><input type="checkbox" id="t6" class="checkbox-custom"><span class="task-time">13:00</span><span class="task-text"><strong>Mittagessen:</strong> Ausgewogene Mahlzeit (MFP Tracker)</span></li>
+    <li class="task-item"><input type="checkbox" id="t5" class="checkbox-custom"><span class="task-time">11:30</span><span class="task-text"><strong>Movement & Fitness:</strong> Workout / 10.000 Schritte Target</span></li>
+    <li class="task-item"><input type="checkbox" id="t6" class="checkbox-custom"><span class="task-time">13:00</span><span class="task-text"><strong>Mittagessen:</strong> Kaloriendefizit halten (Ziel: ~2100 kcal)</span></li>
     <li class="task-item"><input type="checkbox" id="t7" class="checkbox-custom"><span class="task-time">14:00</span><span class="task-text"><strong>Deep Work Block 2 / Admin:</strong> Organisation & Calls</span></li>
     <li class="task-item"><input type="checkbox" id="t8" class="checkbox-custom"><span class="task-time">16:30</span><span class="task-text"><strong>Matten-Zeit:</strong> Qi Gong / NSDR / Meditation</span></li>
     <li class="task-item"><input type="checkbox" id="t9" class="checkbox-custom"><span class="task-time">21:00</span><span class="task-text"><strong>Digital Detox:</strong> Alle Bildschirme aus</span></li>
@@ -167,7 +184,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 </div>
 
 <script>
-const STORAGE_KEY = 'ultimate_growth_tracker_data';
+const STORAGE_KEY = 'ultimate_growth_tracker_v2';
 
 function setTodayDate() {
   const d = new Date();
@@ -178,10 +195,10 @@ function setTodayDate() {
 }
 
 function startNewDay() {
-  if (confirm("Möchtest du einen neuen Tag starten? Alle Haken und Journal-Einträge werden zurückgesetzt.")) {
+  if (confirm("Neuen Tag starten? Checkboxen und Einträge werden zurückgesetzt.")) {
     setTodayDate();
     document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
-    document.querySelectorAll('.input-text, .metric-input').forEach(i => i.value = '');
+    document.querySelectorAll('.input-text, .metric-input-ist').forEach(i => i.value = '');
     saveData();
   }
 }
@@ -218,11 +235,13 @@ function loadData() {
   }
 }
 
-function startCoffeeTimer() {
-  const now = new Date();
-  now.setMinutes(now.getMinutes() + 90);
-  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  alert(`☕ Koffein-Timer gestartet!\nOptimaler Kaffee-Zeitpunkt nach Cortisol-Peak: ab ${timeStr} Uhr.`);
+function notifyTimer() {
+  setTimeout(() => {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 90);
+    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    console.log(`Timer läuft bis ${timeStr}`);
+  }, 500);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
