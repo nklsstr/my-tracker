@@ -3,149 +3,236 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Daily Growth Dashboard</title>
+<title>Ultimate Daily Growth Dashboard</title>
 <style>
-:root{width:100%;--webkit-tap-highlight-color:transparent;--bg-color:#0f172a;--card-bg:#1e293b;--card-border:#334155;--text-main:#f8fafc;--text-muted:#94a3b8;--accent-huberman:#38bdf8;--accent-journal:#2dd4bf;--accent-fitness:#4ade80;--accent-business:#818cf8;--accent-shaolin:#f87171;--radius:12px}
+:root{width:100%;--webkit-tap-highlight-color:transparent;--bg-color:#0f172a;--card-bg:#1e293b;--card-border:#334155;--text-main:#f8fafc;--text-muted:#94a3b8;--accent-huberman:#38bdf8;--accent-journal:#2dd4bf;--accent-fitness:#4ade80;--accent-business:#818cf8;--accent-shaolin:#f87171;--accent-coffee:#fbbf24;--radius:12px}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background-color:var(--bg-color);color:var(--text-main);padding:12px;padding-bottom:40px;max-width:600px;margin:0 auto;line-height:1.4}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background-color:var(--bg-color);color:var(--text-main);padding:12px;padding-bottom:50px;max-width:600px;margin:0 auto;line-height:1.4}
 .action-bar{display:flex;gap:8px;margin-bottom:12px;position:sticky;top:0;z-index:100;background-color:var(--bg-color);padding:6px 0}
 .btn{flex:1;background:var(--card-bg);border:1px solid var(--card-border);color:var(--text-main);padding:10px 14px;border-radius:var(--radius);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-primary{background:linear-gradient(135deg,#0284c7 0%,#0369a1 100%);border:none}
+.btn-primary{background:linear-gradient(135deg,#0284c7 0%,#0369a1 100%);border:none;color:#fff}
 .header-card{background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);border:1px solid var(--card-border);border-radius:var(--radius);padding:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
-.header-title h1{font-size:18px;font-weight:800;color:var(--text-main)}
+.header-title h1{font-size:17px;font-weight:800;color:var(--text-main);letter-spacing:0.5px}
 .header-title p{font-size:11px;color:var(--text-muted)}
 .date-badge{background:rgba(255,255,255,0.08);border:1px solid var(--card-border);border-radius:8px;padding:6px 10px;text-align:right}
 .date-label{font-size:9px;text-transform:uppercase;color:var(--accent-huberman);font-weight:700;display:block}
-.date-input{background:transparent;border:none;color:var(--text-main);font-weight:700;font-size:13px;width:85px;text-align:right;outline:none}
-.card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:14px;margin-bottom:12px}
-.card-header{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.date-input{background:transparent;border:none;color:var(--text-main);font-weight:700;font-size:13px;width:90px;text-align:right;outline:none}
 .metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
 .metric-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:10px 8px;text-align:center}
 .metric-label{font-size:9px;color:var(--text-muted);text-transform:uppercase;font-weight:700;margin-bottom:4px;display:block}
 .metric-input{width:100%;background:transparent;border:none;color:var(--text-main);font-size:16px;font-weight:800;text-align:center;outline:none}
+.card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:14px;margin-bottom:12px}
+.card-header{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:800;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.card-title{display:flex;align-items:center;gap:6px}
 .task-list{list-style:none}
 .task-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.05)}
 .task-item:last-child{border-bottom:none}
-.checkbox-custom{width:20px;height:20px;border-radius:6px;border:2px solid var(--text-muted);appearance:none;-webkit-appearance:none;outline:none;cursor:pointer;position:relative;flex-shrink:0;background:transparent}
+.checkbox-custom{width:22px;height:22px;border-radius:6px;border:2px solid var(--text-muted);appearance:none;-webkit-appearance:none;outline:none;cursor:pointer;position:relative;flex-shrink:0;background:transparent}
 .checkbox-custom:checked{background-color:var(--accent-fitness);border-color:var(--accent-fitness)}
-.checkbox-custom:checked::after{content:'✓';position:absolute;color:#000;font-size:13px;font-weight:900;top:1px;left:3px}
+.checkbox-custom:checked::after{content:'✓';position:absolute;color:#000;font-size:14px;font-weight:900;top:0px;left:4px}
 .task-time{font-size:11px;font-weight:700;color:var(--accent-huberman);width:42px;flex-shrink:0}
 .task-text{font-size:13px;color:var(--text-main);flex:1}
-.journal-group{margin-bottom:10px}
-.journal-label{font-size:11px;font-weight:700;color:var(--accent-journal);margin-bottom:4px;display:block}
-.input-text{width:100%;background:rgba(0,0,0,0.2);border:1px solid var(--card-border);border-radius:8px;padding:8px 10px;color:var(--text-main);font-size:12px;outline:none}
-.prio-item{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.prio-num{width:18px;height:18px;background:rgba(129,140,248,0.2);color:var(--accent-business);font-size:10px;font-weight:800;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.quote-box{font-size:11px;font-style:italic;color:var(--text-muted);background:rgba(248,113,113,0.08);border-left:3px solid var(--accent-shaolin);padding:6px 10px;border-radius:0 6px 6px 0;margin-bottom:8px}
+.journal-section{margin-bottom:10px}
+.journal-section:last-child{margin-bottom:0}
+.journal-label{font-size:11px;font-weight:700;color:var(--accent-journal);margin-bottom:6px;display:block}
+.multi-input-group{display:flex;flex-direction:column;gap:6px}
+.input-row{display:flex;align-items:center;gap:8px}
+.row-num{font-size:10px;font-weight:800;color:var(--text-muted);width:14px;text-align:center;flex-shrink:0}
+.input-text{width:100%;background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:8px;padding:8px 10px;color:var(--text-main);font-size:12.5px;outline:none;transition:border 0.2s}
+.input-text:focus{border-color:var(--accent-huberman)}
+.quote-box{font-size:11px;font-style:italic;color:var(--text-muted);background:rgba(248,113,113,0.08);border-left:3px solid var(--accent-shaolin);padding:8px 10px;border-radius:0 8px 8px 0;margin-bottom:10px}
+.coffee-btn{background:rgba(251,191,36,0.15);border:1px solid var(--accent-coffee);color:var(--accent-coffee);font-size:11px;font-weight:700;padding:4px 8px;border-radius:6px;cursor:pointer}
 </style>
 </head>
 <body>
+
 <div class="action-bar">
   <button class="btn btn-primary" onclick="startNewDay()">↻ Start New Day</button>
 </div>
+
 <div class="header-card">
   <div class="header-title">
     <h1>DAILY GROWTH DASHBOARD</h1>
-    <p>Shaolin Spirit – Huberman – Atomic Habits</p>
+    <p>Shaolin Spirit • Huberman • Atomic Habits</p>
   </div>
   <div class="date-badge">
     <span class="date-label">DATE</span>
-    <input type="text" id="date-val" class="date-input" value="25.09.2026">
+    <input type="text" id="date-val" class="date-input" value="">
   </div>
 </div>
+
+<!-- DAILY HEALTH METRICS -->
 <div class="metrics-grid">
   <div class="metric-card">
-    <span class="metric-label" style="color:var(--accent-fitness);">Steps (Apple)</span>
-    <input type="number" id="m-steps" class="metric-input" value="8500">
+    <span class="metric-label" style="color:var(--accent-fitness);">Schritte</span>
+    <input type="number" id="m-steps" class="metric-input" placeholder="10000">
   </div>
   <div class="metric-card">
-    <span class="metric-label" style="color:var(--accent-huberman);">Calories (MFP)</span>
-    <input type="number" id="m-cals" class="metric-input" value="2100">
+    <span class="metric-label" style="color:var(--accent-huberman);">Kalorien</span>
+    <input type="number" id="m-cals" class="metric-input" placeholder="2200">
   </div>
   <div class="metric-card">
     <span class="metric-label" style="color:var(--accent-business);">Protein (g)</span>
-    <input type="number" id="m-protein" class="metric-input" value="160">
+    <input type="number" id="m-protein" class="metric-input" placeholder="160">
   </div>
 </div>
+
+<!-- MORNING JOURNAL (3 ZEILEN PRO FELD) -->
 <div class="card">
-  <div class="card-header" style="color:var(--accent-journal);">✎ 6-Minute Journal – Morning</div>
-  <div class="journal-group">
-    <span class="journal-label">Dankbarkeit:</span>
-    <input type="text" id="j-grat" class="input-text" placeholder="Ich bin dankbar für...">
+  <div class="card-header">
+    <div class="card-title" style="color:var(--accent-journal);">✎ 6-Minute Journal – Morgen</div>
   </div>
-  <div class="journal-group">
-    <span class="journal-label">Tagesfokus:</span>
-    <input type="text" id="j-focus" class="input-text" placeholder="Heute wird erfolgreich, wenn...">
+  <div class="journal-section">
+    <span class="journal-label">3 Dinge, für die ich dankbar bin:</span>
+    <div class="multi-input-group">
+      <div class="input-row"><span class="row-num">1</span><input type="text" id="j-grat-1" class="input-text" placeholder="Dankbar für..."></div>
+      <div class="input-row"><span class="row-num">2</span><input type="text" id="j-grat-2" class="input-text" placeholder="Dankbar für..."></div>
+      <div class="input-row"><span class="row-num">3</span><input type="text" id="j-grat-3" class="input-text" placeholder="Dankbar für..."></div>
+    </div>
+  </div>
+  <div class="journal-section" style="margin-top:12px;">
+    <span class="journal-label">Was würde den heutigen Tag großartig machen?</span>
+    <div class="multi-input-group">
+      <div class="input-row"><span class="row-num">1</span><input type="text" id="j-focus-1" class="input-text" placeholder="Fokus 1..."></div>
+      <div class="input-row"><span class="row-num">2</span><input type="text" id="j-focus-2" class="input-text" placeholder="Fokus 2..."></div>
+      <div class="input-row"><span class="row-num">3</span><input type="text" id="j-focus-3" class="input-text" placeholder="Fokus 3..."></div>
+    </div>
   </div>
 </div>
+
+<!-- PRIORITY FOCUS -->
 <div class="card">
-  <div class="card-header" style="color:var(--accent-huberman);">⏱ Tagesroutine & Zeitblöcke</div>
+  <div class="card-header">
+    <div class="card-title" style="color:var(--accent-business);">🎯 Top 3 Tages-Prioritäten (Non-Negotiable)</div>
+  </div>
+  <div class="multi-input-group">
+    <div class="input-row"><span class="row-num" style="color:var(--accent-business)">1</span><input type="text" id="prio-1" class="input-text" placeholder="Wichtigste Aufgabe (Deep Work)..."></div>
+    <div class="input-row"><span class="row-num" style="color:var(--accent-business)">2</span><input type="text" id="prio-2" class="input-text" placeholder="Zweitwichtigste Aufgabe..."></div>
+    <div class="input-row"><span class="row-num" style="color:var(--accent-business)">3</span><input type="text" id="prio-3" class="input-text" placeholder="Drittwichtigste Aufgabe..."></div>
+  </div>
+</div>
+
+<!-- DAILY ROUTINE & TIME BLOCKS -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title" style="color:var(--accent-huberman);">⏱ Tagesroutine & Zeitblöcke</div>
+    <button class="coffee-btn" onclick="startCoffeeTimer()" id="coffee-timer-btn">☕ Koffein-Timer (90m)</button>
+  </div>
   <ul class="task-list">
-    <li class="task-item"><input type="checkbox" id="t1" class="checkbox-custom"><span class="task-time">05:30</span><span class="task-text"><strong>Aufstehen & Tageslicht:</strong> Wasser + Sonnenlicht</span></li>
-    <li class="task-item"><input type="checkbox" id="t2" class="checkbox-custom"><span class="task-time">06:00</span><span class="task-text"><strong>Lesen/Mindset:</strong> 15-20 Seiten Buch</span></li>
-    <li class="task-item"><input type="checkbox" id="t3" class="checkbox-custom"><span class="task-time">07:00</span><span class="task-text"><strong>Frühstück:</strong> High-Protein (Kaffeedelay 90m)</span></li>
-    <li class="task-item"><input type="checkbox" id="t4" class="checkbox-custom"><span class="task-time">08:00</span><span class="task-text"><strong>Deep Work:</strong> Focus & Business</span></li>
-    <li class="task-item"><input type="checkbox" id="t5" class="checkbox-custom"><span class="task-time">11:30</span><span class="task-text"><strong>Bewegung:</strong> 10.000 Schritte + Unterkörper/Core</span></li>
-    <li class="task-item"><input type="checkbox" id="t6" class="checkbox-custom"><span class="task-time">13:00</span><span class="task-text"><strong>Mittagessen:</strong> Kaloriendefizit (MFP)</span></li>
-    <li class="task-item"><input type="checkbox" id="t7" class="checkbox-custom"><span class="task-time">14:00</span><span class="task-text"><strong>Ordnung & Admin:</strong> Support / Familie</span></li>
+    <li class="task-item"><input type="checkbox" id="t1" class="checkbox-custom"><span class="task-time">05:30</span><span class="task-text"><strong>Aufstehen & Daylight:</strong> 500ml Wasser + Sonnenlicht</span></li>
+    <li class="task-item"><input type="checkbox" id="t2" class="checkbox-custom"><span class="task-time">06:00</span><span class="task-text"><strong>Lesen & Mindset:</strong> 15-20 Seiten Fachbuch/Sachbuch</span></li>
+    <li class="task-item"><input type="checkbox" id="t3" class="checkbox-custom"><span class="task-time">07:00</span><span class="task-text"><strong>Frühstück & Koffein-Anker:</strong> High-Protein Meal</span></li>
+    <li class="task-item"><input type="checkbox" id="t4" class="checkbox-custom"><span class="task-time">08:00</span><span class="task-text"><strong>Deep Work Block 1:</strong> Fokus-Projekte & Business</span></li>
+    <li class="task-item"><input type="checkbox" id="t5" class="checkbox-custom"><span class="task-time">11:30</span><span class="task-text"><strong>Movement & Fitness:</strong> Workout / 10.000 Schritte</span></li>
+    <li class="task-item"><input type="checkbox" id="t6" class="checkbox-custom"><span class="task-time">13:00</span><span class="task-text"><strong>Mittagessen:</strong> Ausgewogene Mahlzeit (MFP Tracker)</span></li>
+    <li class="task-item"><input type="checkbox" id="t7" class="checkbox-custom"><span class="task-time">14:00</span><span class="task-text"><strong>Deep Work Block 2 / Admin:</strong> Organisation & Calls</span></li>
     <li class="task-item"><input type="checkbox" id="t8" class="checkbox-custom"><span class="task-time">16:30</span><span class="task-text"><strong>Matten-Zeit:</strong> Qi Gong / NSDR / Meditation</span></li>
-    <li class="task-item"><input type="checkbox" id="t9" class="checkbox-custom"><span class="task-time">21:00</span><span class="task-text"><strong>Digital Detox:</strong> Bildschirm aus</span></li>
-    <li class="task-item"><input type="checkbox" id="t10" class="checkbox-custom"><span class="task-time">22:00</span><span class="task-text"><strong>Schlaf-Anker:</strong> Lichter aus (7.5h-8h)</span></li>
+    <li class="task-item"><input type="checkbox" id="t9" class="checkbox-custom"><span class="task-time">21:00</span><span class="task-text"><strong>Digital Detox:</strong> Alle Bildschirme aus</span></li>
+    <li class="task-item"><input type="checkbox" id="t10" class="checkbox-custom"><span class="task-time">22:00</span><span class="task-text"><strong>Schlaf-Anker:</strong> Dunkles kühles Zimmer (7.5-8h Schlaf)</span></li>
   </ul>
 </div>
+
+<!-- SHAOLIN SPIRIT -->
 <div class="card">
-  <div class="card-header" style="color:var(--accent-shaolin);">☯ Shaolin Spirit (Shi Heng Yi)</div>
-  <div class="quote-box">"Disziplin ist das Tun dessen, was getan werden muss – unabhängig von deinen Gefühlen."</div>
+  <div class="card-header">
+    <div class="card-title" style="color:var(--accent-shaolin);">☯ Shaolin Spirit & Mentale Stärke</div>
+  </div>
+  <div class="quote-box">"Disziplin ist das Tun dessen, was getan werden muss – unabhängig von deinen Gefühlen." (Shi Heng Yi)</div>
   <ul class="task-list">
-    <li class="task-item"><input type="checkbox" id="s1" class="checkbox-custom"><span class="task-text"><strong>Mindfulness Mat:</strong> Bewusste Atmung & Erdung</span></li>
-    <li class="task-item"><input type="checkbox" id="s2" class="checkbox-custom"><span class="task-text"><strong>Hindrance Control:</strong> Trägheit & Zweifel überwinden</span></li>
+    <li class="task-item"><input type="checkbox" id="s1" class="checkbox-custom"><span class="task-text"><strong>Mindfulness Mat:</strong> Bewusste Atmung & Körper-Erdung</span></li>
+    <li class="task-item"><input type="checkbox" id="s2" class="checkbox-custom"><span class="task-text"><strong>Hindrance Control:</strong> Trägheit, Unruhe & Zweifel überwinden</span></li>
   </ul>
 </div>
+
+<!-- EVENING JOURNAL (3 ZEILEN PRO FELD) -->
 <div class="card">
-  <div class="card-header" style="color:var(--accent-business);">🎯 Tages-Prioritäten</div>
-  <div class="prio-item"><span class="prio-num">1</span><input type="text" id="prio1" class="input-text" placeholder="Hauptaufgabe heute..."></div>
-  <div class="prio-item"><span class="prio-num">2</span><input type="text" id="prio2" class="input-text" placeholder="Weitere Aufgabe..."></div>
-</div>
-<div class="card">
-  <div class="card-header" style="color:var(--accent-journal);">⚝ 6-Minute Journal – Evening</div>
-  <div class="journal-group">
-    <span class="journal-label">Tages-Erfolge:</span>
-    <input type="text" id="j-wins" class="input-text" placeholder="3 Siege heute...">
+  <div class="card-header">
+    <div class="card-title" style="color:var(--accent-journal);">⚝ 6-Minute Journal – Abend</div>
   </div>
-  <div class="journal-group">
-    <span class="journal-label">Erkenntnis für morgen:</span>
-    <input type="text" id="j-learn" class="input-text" placeholder="Was verbessere ich morgen?">
+  <div class="journal-section">
+    <span class="journal-label">3 Erfolge / Siege heute:</span>
+    <div class="multi-input-group">
+      <div class="input-row"><span class="row-num">1</span><input type="text" id="j-win-1" class="input-text" placeholder="Sieg 1..."></div>
+      <div class="input-row"><span class="row-num">2</span><input type="text" id="j-win-2" class="input-text" placeholder="Sieg 2..."></div>
+      <div class="input-row"><span class="row-num">3</span><input type="text" id="j-win-3" class="input-text" placeholder="Sieg 3..."></div>
+    </div>
+  </div>
+  <div class="journal-section" style="margin-top:12px;">
+    <span class="journal-label">Erkenntnis: Was lerne ich daraus für morgen?</span>
+    <div class="multi-input-group">
+      <div class="input-row"><span class="row-num">1</span><input type="text" id="j-learn-1" class="input-text" placeholder="Erkenntnis 1..."></div>
+      <div class="input-row"><span class="row-num">2</span><input type="text" id="j-learn-2" class="input-text" placeholder="Erkenntnis 2..."></div>
+    </div>
   </div>
 </div>
+
 <script>
-const K='daily_app_data';
-function startNewDay(){
-  const t=new Date();
-  document.getElementById('date-val').value=`${String(t.getDate()).padStart(2,'0')}.${String(t.getMonth()+1).padStart(2,'0')}.${t.getFullYear()}`;
-  document.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false);
-  S();
+const STORAGE_KEY = 'ultimate_growth_tracker_data';
+
+function setTodayDate() {
+  const d = new Date();
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = d.getFullYear();
+  document.getElementById('date-val').value = `${day}.${month}.${year}`;
 }
-function S(){
-  const d={};
-  document.querySelectorAll('input').forEach(e=>{d[e.id]=e.type==='checkbox'?e.checked:e.value});
-  localStorage.setItem(K,JSON.stringify(d));
+
+function startNewDay() {
+  if (confirm("Möchtest du einen neuen Tag starten? Alle Haken und Journal-Einträge werden zurückgesetzt.")) {
+    setTodayDate();
+    document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+    document.querySelectorAll('.input-text, .metric-input').forEach(i => i.value = '');
+    saveData();
+  }
 }
-function L(){
-  const s=localStorage.getItem(K);
-  if(!s)return;
-  const d=JSON.parse(s);
-  Object.keys(d).forEach(i=>{
-    const e=document.getElementById(i);
-    if(e){if(e.type==='checkbox')e.checked=d[i];else e.value=d[i]}
+
+function saveData() {
+  const data = {};
+  document.querySelectorAll('input').forEach(el => {
+    if (el.id) {
+      data[el.id] = el.type === 'checkbox' ? el.checked : el.value;
+    }
   });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
-document.addEventListener('DOMContentLoaded',()=>{
-  L();
-  document.querySelectorAll('input').forEach(e=>{
-    e.addEventListener('change',S);
-    e.addEventListener('input',S);
+
+function loadData() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (!stored) {
+    setTodayDate();
+    return;
+  }
+  const data = JSON.parse(stored);
+  Object.keys(data).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      if (el.type === 'checkbox') {
+        el.checked = data[id];
+      } else {
+        el.value = data[id];
+      }
+    }
+  });
+  if (!document.getElementById('date-val').value) {
+    setTodayDate();
+  }
+}
+
+function startCoffeeTimer() {
+  const now = new Date();
+  now.setMinutes(now.getMinutes() + 90);
+  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  alert(`☕ Koffein-Timer gestartet!\nOptimaler Kaffee-Zeitpunkt nach Cortisol-Peak: ab ${timeStr} Uhr.`);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadData();
+  document.querySelectorAll('input').forEach(el => {
+    el.addEventListener('change', saveData);
+    el.addEventListener('input', saveData);
   });
 });
 </script>
+
 </body>
 </html>
